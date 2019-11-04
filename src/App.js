@@ -15,16 +15,15 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
-	console.log(cart);
-	console.log(products);
-
 	const addItem = item => {
 		setCart([...cart, item]);
 	};
 
-	const removeItem = ({ id }) => {
+	const removeItem = (id) => {
+		console.log('ID: ', id);
 		const keepItems = cart.filter(item => item.id !== id);
-		setCart([keepItems]);
+		console.log('Items to keep: ', keepItems);
+		setCart(keepItems);
 	};
 
 	return (
@@ -40,12 +39,10 @@ function App() {
 				/>
 			</ProductContext.Provider>
 
-			<CartContext.Provider value={cart}>
+			<CartContext.Provider value={{ cart, removeItem }}>
 				<Route
 					path="/cart"
 					component={ShoppingCart}
-					
-					render={props => <ShoppingCart {...props} removeItem={removeItem} />}
 				/>
 			</CartContext.Provider>
 		</div>
