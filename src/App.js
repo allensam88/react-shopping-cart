@@ -15,8 +15,16 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
+	console.log(cart);
+	console.log(products);
+
 	const addItem = item => {
 		setCart([...cart, item]);
+	};
+
+	const removeItem = ({ id }) => {
+		const keepItems = cart.filter(item => item.id !== id);
+		setCart([keepItems]);
 	};
 
 	return (
@@ -36,6 +44,8 @@ function App() {
 				<Route
 					path="/cart"
 					component={ShoppingCart}
+					
+					render={props => <ShoppingCart {...props} removeItem={removeItem} />}
 				/>
 			</CartContext.Provider>
 		</div>
